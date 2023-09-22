@@ -1,12 +1,12 @@
-# Diff-Foley: Synchronized Video-to-Audio Synthesis with Latent Diffusion Models
+# [NeurIPS 2023] Diff-Foley: Synchronized Video-to-Audio Synthesis with Latent Diffusion Models
 
-Offical implementation of the paper: *[Diff-Foley: Synchronized Video-to-Audio Synthesis with Latent Diffusion Models](https://arxiv.org/abs/2306.17203v1)*.
+Offical implementation of the NeurIPS 2023 paper: *[Diff-Foley: Synchronized Video-to-Audio Synthesis with Latent Diffusion Models](https://arxiv.org/abs/2306.17203v1)*.
 
 
 Project Page: https://diff-foley.github.io
 
 
-Code will be released soon.
+Code will be released soon. (Before 10.30)
 
 <p align="center">
     <img src="teaser.png">
