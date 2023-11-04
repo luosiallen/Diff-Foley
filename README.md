@@ -7,9 +7,16 @@ Project Page: https://diff-foley.github.io
 
 
 ## News
-- (🔥New) 2023/11/5 **Diff-Foley Inference Pipeline** is released! See the 'inference' folder.
+- (🔥New) 2023/11/5 **Diff-Foley Inference Pipeline** is released! See the 'Inference Usages'.
 - (🔥New) 2023/11/5 **Diff-Foley Pretrained Model** is released! Download from Hugging Face 🤗 [here](https://huggingface.co/SimianLuo/Diff-Foley).
 - Including: Stage1-CAVP, Stage2-LDM, Double-Guidance Classifier !!
+
+
+## Inference Usages:
+1. Open the `diff_foley_inference.ipynb` in `inference` folder.
+2. Download the pretrained model foler `diff_foley_ckpt` from Hugging Face 🤗 [here](https://huggingface.co/SimianLuo/Diff-Foley) and place it under `inference` folder.
+3. Run the `diff_foley_inference.ipynb`.
+
 
 ## Diff-Foley
 <p align="center">
