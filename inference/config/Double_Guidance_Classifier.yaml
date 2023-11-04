@@ -1,0 +1,35 @@
+model:
+  base_learning_rate: 5.0e-5
+  target: diff_foley.modules.double_guidance.alignment_classifier.Alignment_Classifier_Double_Guidance
+  params:
+    linear_start: 0.00085
+    linear_end: 0.0120
+    timesteps: 1000
+    scale_factor: 0.18215
+    first_stage_key: spec
+    monitor: val/bce_loss
+
+    classifier_config:
+      target: diff_foley.modules.double_guidance.alignment_backbone.Classifier_Backbone
+      params:
+        image_size: 32      # unused
+        in_channels: 4
+        out_channels: 1
+        model_channels: 128
+        attention_resolutions: [2, 4]
+        num_res_blocks: 1
+        channel_mult: [1, 2, 2]
+        num_heads: 8
+        use_spatial_transformer: True
+        transformer_depth: 1
+        context_dim: 512
+        use_checkpoint: True
+        legacy: False
+
+
+    cond_stage_config:
+      target: diff_foley.modules.cond_stage.video_feat_encoder.Video_Feat_Encoder_Posembed
+      params:
+        origin_dim: 512
+        embed_dim: 512
+        seq_len: 40
