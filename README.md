@@ -6,8 +6,12 @@ Offical implementation of the NeurIPS 2023 paper: *[Diff-Foley: Synchronized Vid
 Project Page: https://diff-foley.github.io
 
 
-Code will be released soon. (Before 10.30)
+## News
+- (🔥New) 2023/11/5 **Diff-Foley Inference Pipeline** is released! See the 'inference' folder.
+- (🔥New) 2023/11/5 **Diff-Foley Pretrained Model** is released! Download from Hugging Face 🤗 [here](https://huggingface.co/SimianLuo/Diff-Foley).
+- Including: Stage1-CAVP, Stage2-LDM, Double-Guidance Classifier !!
 
+## Diff-Foley
 <p align="center">
     <img src="teaser.png">
 </p>
