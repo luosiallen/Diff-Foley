@@ -1,0 +1,129 @@
+model:
+  base_learning_rate: 1.0e-4
+  target: adm.models.diffusion.sd_ddpm_scale.LatentDiffusion
+  params:
+    linear_start: 0.00085
+    linear_end: 0.0120
+    num_timesteps_cond: 1
+    log_every_t: 200
+    timesteps: 1000
+    first_stage_key: "mix_spec"
+    cond_stage_key: "mix_video_feat"
+    image_size: 64
+    channels: 4
+    cond_stage_trainable: true   # Note: different from the one we trained before
+    conditioning_key: crossattn
+    monitor: val/loss_simple_ema
+    scale_factor: 0.18215
+    use_ema: False
+    ckpt_path: "./pretrained_model/sd-v1-4-full-ema.ckpt"
+
+    scheduler_config: # 10000 warmup steps
+      target: adm.lr_scheduler.LambdaLinearScheduler
+      params:
+        warm_up_steps: [ 1000 ]
+        cycle_lengths: [ 10000000000000 ] # incredibly large number to prevent corner cases
+        f_start: [ 1.e-6 ]
+        f_max: [ 1. ]
+        f_min: [ 1. ]
+
+    unet_config:
+      target: adm.modules.diffusionmodules.openai_unetmodel.UNetModel
+      params:
+        image_size: 32 # unused
+        in_channels: 4
+        out_channels: 4
+        model_channels: 320
+        attention_resolutions: [ 4, 2, 1 ]
+        num_res_blocks: 2
+        channel_mult: [ 1, 2, 4, 4 ]
+        num_heads: 8
+        use_spatial_transformer: True
+        transformer_depth: 1
+        context_dim: 768
+        use_checkpoint: True
+        legacy: False
+
+    first_stage_config:
+      target: adm.models.autoencoder_img.AutoencoderKL
+      params:
+        embed_dim: 4
+        monitor: val/rec_loss
+        ddconfig:
+          double_z: true
+          z_channels: 4
+          resolution: 256
+          in_channels: 3
+          out_ch: 3
+          ch: 128
+          ch_mult:
+          - 1
+          - 2
+          - 4
+          - 4
+          num_res_blocks: 2
+          attn_resolutions: []
+          dropout: 0.0
+        lossconfig:
+          target: torch.nn.Identity
+    
+    cond_stage_config:
+      target: adm.modules.cond_stage.video_feat_encoder.Video_Feat_Encoder_Posembed
+      params:
+        origin_dim: 512
+        embed_dim: 768
+        seq_len: 40
+
+data:
+  target: main.DataModuleFromConfig
+  params:
+    batch_size: 220
+    num_workers: 32
+    wrap: True
+    train:
+      target: adm.data.video_spec_dataset.audio_video_spec_fullset_Dataset_Train
+      params:
+        dataset1:
+          dataset_name: VGGSound
+          data_dir: /dataset/VGGSound
+          video_dir: /dataset/VGGSound           # Not Necessary Except for Inference
+          split_txt_path: /dataset/VGGSound
+
+        feat_type: CAVP_feat
+        sr: 16000
+        duration: 10
+        truncate: 131072
+        fps: 4
+
+    validation:
+      target: adm.data.video_spec_fullset_contrastive_concat_vgg_audioset_w_music.audio_video_spec_fullset_Dataset_Valid
+      params:
+        dataset1:
+          dataset_name: VGGSound
+          data_dir: /dataset/VGGSound
+          video_dir: /dataset/VGGSound           # Not Necessary Except for Inference
+          split_txt_path: /dataset/VGGSound
+
+        feat_type: CAVP_feat
+        sr: 16000
+        duration: 10
+        truncate: 131072
+        fps: 4
+
+checkpoint:
+  save_every_n_epochs: 4
+
+
+callback:
+  logger_name: sound_logger
+  target: adm.logger.SoundLogger_concat_fullset
+  params: 
+    train_batch_frequency: 1000
+    val_batch_frequency: 1000
+    max_sound_num: 6
+    sr: 16000
+    fps: 4
+    guidance_scale: 6.5
+  
+
+
