@@ -7,9 +7,10 @@ Project Page: https://diff-foley.github.io
 
 
 ## To-Do:
-- Stage1 CAVP Training Code
-- Stage2 LDM Training Code
-- Environment Setting
+- Evaluation Tool ☑️
+- Stage1 CAVP Training Code ☑️
+- Stage2 LDM Training Code ☑️
+- Environment Setting 
 - Diff-Foley Inference Code   ☑️
 - Diff-Foley Pretrained Model ☑️
 
