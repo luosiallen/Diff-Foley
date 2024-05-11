@@ -2,12 +2,9 @@
 
 Offical implementation of the NeurIPS 2023 paper: *[Diff-Foley: Synchronized Video-to-Audio Synthesis with Latent Diffusion Models](https://arxiv.org/abs/2306.17203v1)*.
 
+# DIFF-FOLEY: Synchronized Video-to-Audio Synthesis with Latent Diffusion 
 
-
-
-
-# DIFF-FOLEY: Synchronized Video-to-Audio Synthesis with Latent Diffusion Models
-
+**Analysis/Evaluation Aaron Singh**
 ## Abstract
 
 DIFF-FOLEY utilizes a video-to-audio (V2A) synthesis approach that employs a latent diffusion model (LDM) to generate high-quality audio with improved synchronization and audio-visual relevance. The method consists of two stages: Contrastive Audio-Visual Pretraining (CAVP) and Latent Diffusion Model (LDM) training. In the CAVP stage, audio-visual features are aligned using a two-stream encoder design, and a contrastive objective is used to maximize the similarity of audio-visual pairs from the same video and minimize the similarity of pairs from different videos. This stage aims to capture the subtle connection between audio and visual modalities. In the LDM stage, a UNet backbone architecture is used to encode the spectrogram into a low-dimensional latent space, and a cross-attention module is applied to capture the audio-visual correlation. The model also employs a double guidance technique to further improve sample quality.
