@@ -143,7 +143,7 @@ sr = 16000
 # trim_len = 620
 
 TRANSFORMS = torchvision.transforms.Compose([
-    MelSpectrogram(sr=sr, nfft=1024, fmin=125, fmax=7600, nmels=128, hoplen=250, spec_power=1),
+    MelSpectrogram(sr=sr, nfft=1024, fmin=125, fmax=7600, nmels=128, hoplen=256, spec_power=1),
     LowerThresh(1e-5),
     Log10(),
     Multiply(20),
